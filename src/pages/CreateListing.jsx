@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase.config'
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid'
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -98,7 +99,7 @@ function CreateListing() {
             return new Promise((resolve, reject) => {
                 const storage = getStorage()
                 const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
-                console.log(uuidv4())
+
                 const storageRef = ref(storage, 'images/' + fileName)
 
                 const uploadTask = uploadBytesResumable(storageRef, image);
@@ -120,8 +121,6 @@ function CreateListing() {
                         reject(error)
                     },
                     () => {
-                        // Handle successful uploads on complete
-                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                             resolve(downloadURL);
                         });
@@ -135,9 +134,25 @@ function CreateListing() {
             toast.error('Images not uploaded')
             return
         })
-        console.log(imgUrls)
+
+        const formDataCopy = {
+            ...formData,
+            imgUrls,
+            geoLocation,
+            timeStamp: serverTimestamp()
+        }
+
+        delete formDataCopy.images
+        delete formDataCopy.address
+        location && (formDataCopy.location = location)
+        !formDataCopy.offer && delete formDataCopy.discountedPrice
+
+        const docRef = await addDoc(collection(db, 'listings'),
+            formDataCopy)
 
         setLoading(false)
+        toast.success('Listing saved')
+        navigate(`/category/${formDataCopy.type}/${docRef.id}`)
     }
 
 

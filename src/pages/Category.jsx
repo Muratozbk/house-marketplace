@@ -59,8 +59,9 @@ function Category() {
                 </p>
             </header>
 
-            {loading ? (<Spinner />) : listings &&
-                listings.length > 0 ?
+            {loading ? (
+                <Spinner />
+            ) : listings && listings.length > 0 ?
                 (<>
                     <main>
                         <ul className="categoryListings">
@@ -70,7 +71,8 @@ function Category() {
                             )}
                         </ul>
                     </main>
-                </>) : (<p>No listings for {params.categoryName} </p>)}
+                </>) : (
+                    <p>No listings for {params.categoryName} </p>)}
         </div>
     );
 }
