@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase.config'
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, onSnapshot } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid'
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -36,7 +36,8 @@ function CreateListing() {
     const isMounted = useRef(true)
 
     useEffect(() => {
-        if (isMounted) {
+        // if (isMounted) {
+        if (isMounted.current) {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     setFormData({ ...formData, userRef: user.uid })
@@ -45,18 +46,29 @@ function CreateListing() {
                 }
             })
         }
+        const unsubscribe = onSnapshot(collection(db, 'listings'), (snapshot) => {
+            const fetchedData = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            // Update your state or do something with the fetched data
+            console.log(fetchedData);
+        });
 
         return () => {
             isMounted.current = false
+            unsubscribe()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMounted])
+        // }, [isMounted])
+    }, [auth, navigate, formData])
 
     ////----- On Submit ---------////
     const onSubmit = async e => {
         e.preventDefault()
         setLoading(true)
 
+        console.log(formData)
         if (discountedPrice >= regularPrice) {
             setLoading(false)
             toast.error('Discounted price need to be less than regular price')
@@ -139,9 +151,8 @@ function CreateListing() {
             ...formData,
             imgUrls,
             geoLocation,
-            timeStamp: serverTimestamp()
+            timestamp: serverTimestamp()
         }
-
         delete formDataCopy.images
         delete formDataCopy.address
         location && (formDataCopy.location = location)
@@ -180,6 +191,18 @@ function CreateListing() {
             }))
         }
     }
+
+    // const [data, setData] = useState([]);
+    // useEffect(() => {
+    //     const unsubscribe = onSnapshot(collection(db, 'listings'), (snapshot) => {
+    //         const fetchedData = snapshot.docs.map((doc) => ({
+    //             id: doc.id,
+    //             ...doc.data(),   }));
+    //         setData(fetchedData);});
+    //     return () => {
+    //         console.log(data)
+    //         unsubscribe(); // Unsubscribe from the listener when the component unmounts
+    //     }; }, []);
 
     if (loading) {
         return <Spinner />
@@ -232,7 +255,7 @@ function CreateListing() {
                     <div className="formButtons">
                         <button className={parking ? 'formButtonActive' : 'formButton'} type='button'
                             id='parking' value={true}
-                            onClick={onMutate} min='1' max='50' >
+                            onClick={onMutate} >
                             Yes
                         </button>
                         <button className={
@@ -295,7 +318,7 @@ function CreateListing() {
                     <div className="formPriceDiv">
                         <input type="number" className="formInputSmall"
                             id="regularPrice" value={regularPrice}
-                            onChange={onMutate} min='50' max='750000000' required
+                            onChange={onMutate} min={50} max={999999999} required
                         />
                         {type === 'rent' &&
                             <p className="formPriceText">$ / Month</p>}
@@ -306,7 +329,7 @@ function CreateListing() {
                             <label className="formLabel">Discounted Price</label>
                             <input type="number" className="formInputSmall"
                                 id="discountedPrice" value={discountedPrice}
-                                onChange={onMutate} min='50' max='750000000' required />
+                                onChange={onMutate} min={50} max={999999999} required={offer} />
                         </>
                     )}
 

@@ -34,7 +34,7 @@ function Category() {
                 const listings = []
 
                 querySnap.forEach((doc) => {
-                    console.log(doc.id)
+                    console.log(doc.data())
                     return listings.push({
                         id: doc.id,
                         data: doc.data()
@@ -65,10 +65,10 @@ function Category() {
                 (<>
                     <main>
                         <ul className="categoryListings">
-                            {listings.map(listing =>
+                            {listings.map(listing => (
                                 <ListingItem listing={listing.data}
                                     id={listing.id} key={listing.id} />
-                            )}
+                            ))}
                         </ul>
                     </main>
                 </>) : (

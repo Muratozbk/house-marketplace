@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-    collection, getDocs, query, where, orderBy, limit, startAfter
+    collection, getDocs, query, where, orderBy, limit, startAfter, onSnapshot
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
@@ -17,7 +17,6 @@ function Offers() {
             try {
                 //Get reference
                 const listingsRef = collection(db, 'listings')
-
                 // Create a query
                 const q = query(
                     listingsRef,
@@ -27,20 +26,21 @@ function Offers() {
 
                 // Execute query
                 const querySnap = await getDocs(q)
-
                 const listings = []
 
                 querySnap.forEach((doc) => {
-                    console.log(doc.id)
-                    return listings.push({
+                    listings.push({
                         id: doc.id,
                         data: doc.data()
                     })
                 })
+                console.log(listings)
+
                 setListings(listings)
                 setLoading(false)
             } catch (error) {
                 toast.error('Could not fetch listings')
+                console.error(error)
             }
         }
         fetchListing()
@@ -59,7 +59,7 @@ function Offers() {
                 (<>
                     <main>
                         <ul className="categoryListings">
-                            {listings.map(listing =>
+                            {listings.map((listing) =>
                                 <ListingItem listing={listing.data}
                                     id={listing.id} key={listing.id} />
                             )}
