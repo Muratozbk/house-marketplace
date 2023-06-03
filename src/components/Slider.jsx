@@ -16,6 +16,7 @@ function Slider() {
 
     useEffect(() => {
         const fetchListing = async () => {
+            // Firebase Collection
             const listingsRef = collection(db, 'listings')
             const q = query(listingsRef, orderBy('timestamp', 'desc'),
                 limit(5))
@@ -45,10 +46,13 @@ function Slider() {
 
             <Swiper slidesPerView={1} pagination={{ clickable: true }}>
                 {listings.map(({ data, id }) => (
-                    <SwiperSlide key={id}>
-                        <div>
-                            {data.name}
-                            <img src={data.imgUrls[0]} alt="" />
+                    <SwiperSlide key={id}
+                        onClick={() => navigate(`/category/${data.type}/${id}`)}>
+                        <div style={{ background: `url(${data.imgUrls[0]}) center no-repeat`, backgroundSize: 'cover' }} className="swiperSlideDiv">
+                            <p className="swiperSlideText"> {data.name}</p>
+                            <p className="swiperSlidePrice">
+                                ${data.discountedPrice ?? data.regularPrice}
+                                {data.type === 'rent' && ' / month'} </p>
                         </div>
                     </SwiperSlide>
                 ))}
