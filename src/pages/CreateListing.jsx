@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 function CreateListing() {
     const [loading, setLoading] = useState(false)
-    const [geoLocationEnabled, setGeoLocationEnabled] = useState(true)
+    const [geolocationEnabled, setGeolocationEnabled] = useState(true)
     const [formData, setFormData] = useState({
         type: 'rent',
         name: '',
@@ -80,17 +80,17 @@ function CreateListing() {
             return
         }
 
-        let geoLocation = {}
+        let geolocation = {}
         let location = {}
 
-        if (geoLocationEnabled) {
+        if (geolocationEnabled) {
             const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`)
 
             const data = await response.json()
             console.log(data)
 
-            geoLocation.lat = data.results[0]?.geometry.location.lat ?? 0
-            geoLocation.lng = data.results[0]?.geometry.location.lng ?? 0
+            geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
+            geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
 
             location = data.status === 'ZERO_RESULTS' ? undefined :
                 data.results[0]?.formatted_address
@@ -101,8 +101,8 @@ function CreateListing() {
                 return
             }
         } else {
-            geoLocation.lat = latitude
-            geoLocation.lng = longitude
+            geolocation.lat = latitude
+            geolocation.lng = longitude
         }
 
         // Store image in firebase
@@ -149,7 +149,7 @@ function CreateListing() {
         const formDataCopy = {
             ...formData,
             imgUrls,
-            geoLocation,
+            geolocation,
             timestamp: serverTimestamp()
         }
         formDataCopy.location = address
@@ -282,7 +282,7 @@ function CreateListing() {
                     <textarea type='text' id="address"
                         value={address} onChange={onMutate} className="formInputAddress" required />
 
-                    {!geoLocationEnabled && (
+                    {!geolocationEnabled && (
                         <div className="formLatLng ">
                             <div className="latlngSmall">
                                 <label className="formLabel">Latitude</label>
