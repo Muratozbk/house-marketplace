@@ -29,6 +29,7 @@ function Listing() {
             if (docSnap.exists()) {
                 setListing(docSnap.data())
                 setLoading(false)
+                console.log(listing)
             }
         }
 
@@ -43,12 +44,13 @@ function Listing() {
 
         <Swiper
             slidesPerView={1} pagination={{ clickable: true }}
-
+            navigation
         >
             {listing.imgUrls.map((url, index) => (
                 <SwiperSlide key={index}>
                     <div style={{
-                        background: `url(${listing.imgUrls[index]}) 
+                        // background: `url(${listing.imgUrls[index]}) 
+                        background: `url(${url}) 
                             center no-repeat`,
                         backgroundSize: 'cover'
                     }} className="swiperSlideDiv"></div>
