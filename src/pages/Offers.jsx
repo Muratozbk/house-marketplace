@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-    collection, getDocs, query, where, orderBy, limit, startAfter, onSnapshot
+    collection, getDocs, query, where, orderBy, limit, startAfter
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
