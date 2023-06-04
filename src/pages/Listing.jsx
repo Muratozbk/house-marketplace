@@ -29,7 +29,6 @@ function Listing() {
             if (docSnap.exists()) {
                 setListing(docSnap.data())
                 setLoading(false)
-                console.log(listing)
             }
         }
 
@@ -101,7 +100,7 @@ function Listing() {
                     center={[listing.geolocation.lat, listing.geolocation.lng]}
                     zoom={13} scrollWheelZoom={false}>
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        // attribution='<a href="https://www.openstreetmap.org">OpenStreetMap</a>'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <Marker position={[listing.geolocation.lat, listing.geolocation.lng]}>
                         <Popup>{listing.location}</Popup>
