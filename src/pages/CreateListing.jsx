@@ -53,7 +53,6 @@ function CreateListing() {
                 ...doc.data(),
             }));
             // Update your state or do something with the fetched data
-            console.log(fetchedData);
         });
 
         return () => {
@@ -69,7 +68,6 @@ function CreateListing() {
         e.preventDefault()
         setLoading(true)
 
-        console.log(formData)
         if (discountedPrice >= regularPrice) {
             setLoading(false)
             toast.error('Discounted price need to be less than regular price')
@@ -88,7 +86,6 @@ function CreateListing() {
             const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`)
 
             const data = await response.json()
-            console.log(data)
 
             geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
             geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
@@ -202,7 +199,6 @@ function CreateListing() {
     //             ...doc.data(),   }));
     //         setData(fetchedData);});
     //     return () => {
-    //         console.log(data)
     //         unsubscribe(); // Unsubscribe from the listener when the component unmounts
     //     }; }, []);
 
