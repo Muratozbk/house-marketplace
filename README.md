@@ -20,22 +20,6 @@ This repository contains the source code for the House Marketplace App, a React-
 - Swiper: A mobile touch slider library for sliding through elements.
 - React Toastify: A notification library for displaying success, error, and other types of messages.
 
-## Installation
-
-To run the House Marketplace App locally, follow these steps:
-
-1. Clone the repository:
-
-2. Navigate to the project directory:
-
-3. Install the dependencies:
-
-4. Start the development server:
-
-5. Open your web browser and visit `http://localhost:3000` to access the app.
-
-Please note that you will need to have Node.js and npm (Node Package Manager) installed on your machine.
-
 ## Project Structure
 
 The project's codebase is organized as follows:
@@ -49,25 +33,12 @@ The project's codebase is organized as follows:
 
 Feel free to explore the code and make any necessary modifications or additions to suit your needs.
 
-## Contributing
-
-If you'd like to contribute to the House Marketplace App, please follow these guidelines:
-
-1. Fork the repository on GitHub.
-2. Create a new branch from the `master` branch.
-3. Make your changes and test thoroughly.
-4. Commit your changes with descriptive commit messages.
-5. Push your changes to your forked repository.
-6. Submit a pull request to the original repository.
-
-Please ensure that your code follows the existing coding style and conventions used in the project.
-
 ## License
 
 The House Marketplace App is released under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code as per the terms of the license.
 
 ## Contact
 
-If you have any questions, suggestions, or issues related to the House Marketplace App, please contact the development team at `your-email@example.com`. We appreciate your feedback and involvement in making the app better.
+If you have any questions, suggestions, or issues related to the House Marketplace App, please contact the development team at `https://twitter.com/Murattozzk`. We appreciate your feedback and involvement in making the app better.
 
 Happy house hunting!
