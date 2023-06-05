@@ -11,6 +11,11 @@ This repository contains the source code for the House Marketplace App, a React-
 - Swipe through carousels and sliders using the Swiper library to view multiple images of each house.
 - Receive error notifications using React Toastify to enhance user feedback.
 
+![Alt Text](./src/assets/jpg/Capture.PNG)
+![Alt Text](./src/assets/jpg/Capture2.PNG)
+![Alt Text](./src/assets/jpg/Capture3.PNG)
+
+
 ## Technologies Used
 
 - React: A JavaScript library for building user interfaces.
