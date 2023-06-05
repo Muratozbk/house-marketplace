@@ -12,9 +12,6 @@ This repository contains the source code for the House Marketplace App, a React-
 - Receive error notifications using React Toastify to enhance user feedback.
 
 ![Alt Text](./src/assets/jpg/Capture.PNG)
-![Alt Text](./src/assets/jpg/Capture2.PNG)
-![Alt Text](./src/assets/jpg/Capture3.PNG)
-
 
 ## Technologies Used
 
