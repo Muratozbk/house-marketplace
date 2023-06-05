@@ -879,3 +879,16 @@ button {
   font-size: 0.8rem;
   opacity: 0.75;
 }
+
+.notFound {
+  height: 100vh;
+  font-size: 2rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #00cc66; */
+}

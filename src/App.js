@@ -34,7 +34,7 @@ function App() {
           <Route path="/edit-listing/:listingId" element={<EditListing />} />
           <Route path='/category/:categoryname/:listingId' element={<Listing />} />
           <Route path='/contact/:landlordId' element={<Contact />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Navbar />
       </Router>
