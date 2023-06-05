@@ -2,10 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase.config'
-import {
-    doc, getDoc, updateDoc, addDoc,
-    collection, serverTimestamp, onSnapshot
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid'
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -41,9 +38,17 @@ function EditListing() {
     const navigate = useNavigate()
     const isMounted = useRef(true)
 
+    // Redirect if listing is not user's
+    useEffect(() => {
+        if (listing && listing.userRef !== auth.currentUser.uid) {
+            toast.error('You can not edit that listing')
+            navigate('/')
+        }
+    }, [])
+
     // Fetch Listing to Edit
     useEffect(() => {
-        setListing(true)
+        setLoading(true)
         const fetchListing = async () => {
             const docRef = doc(db, 'listings', params.listingId)
             const docSnap = await getDoc(docRef)
@@ -75,18 +80,9 @@ function EditListing() {
                 }
             })
         }
-        const unsubscribe = onSnapshot(collection(db, 'listings'), (snapshot) => {
-            const fetchedData = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            // Update your state or do something with the fetched data
-            console.log(fetchedData);
-        });
 
         return () => {
             isMounted.current = false
-            unsubscribe()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         // }, [isMounted])
@@ -186,8 +182,9 @@ function EditListing() {
         delete formDataCopy.address
         !formDataCopy.offer && delete formDataCopy.discountedPrice
 
-        const docRef = await addDoc(collection(db, 'listings'),
-            formDataCopy)
+        // Update Listing
+        const docRef = doc(db, 'listings', params.listingId)
+        await updateDoc(docRef, formDataCopy)
 
         setLoading(false)
         toast.success('Listing saved')
