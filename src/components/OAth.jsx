@@ -25,7 +25,7 @@ function OAth() {
                 await setDoc(doc(db, 'users', user.uid), {
                     name: user.displayName,
                     email: user.email,
-                    timeStamp: serverTimestamp()
+                    timestamp: serverTimestamp()
                 })
             }
             navigate('/')

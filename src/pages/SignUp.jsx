@@ -9,6 +9,7 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import OAth from "../components/OAth";
 
 function SignUp() {
+    // eslint-disable-next-line
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
@@ -24,6 +25,10 @@ function SignUp() {
             ...prevState,
             [e.target.id]: e.target.value,
         }))
+    }
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState)
     }
 
     const onSubmit = async (e) => {
@@ -76,7 +81,7 @@ function SignUp() {
 
                         <img src={visibilityIcon} alt="show password"
                             className="showPassword"
-                            onClick={(prevState) => !prevState} />
+                            onClick={togglePasswordVisibility} />
                     </div>
 
                     <Link to='/forgot-password' className="forgotPasswordLink">Forgot Password

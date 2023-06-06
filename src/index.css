@@ -109,6 +109,11 @@ button {
   .explore {
     margin: 3rem;
   }
+
+  .editIcon {
+    top: 1%;
+    right: 2%;
+  }
 }
 
 .loadingSpinnerContainer {
@@ -430,7 +435,6 @@ button {
 }
 
 .listingsList {
-  /* margin-left: -2rem; */
   display: contents;
 }
 
@@ -455,7 +459,7 @@ button {
 
 @media (min-width: 1024px) {
   .categoryListingImg {
-    width: 19%;
+    width: 20%;
     height: 217px;
   }
 }
@@ -466,7 +470,7 @@ button {
 
 @media (min-width: 1024px) {
   .categoryListingDetails {
-    width: 79%;
+    width: 78%;
   }
 }
 
