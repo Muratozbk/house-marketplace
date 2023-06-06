@@ -96,6 +96,7 @@ button {
 .category,
 .explore {
   margin: 1rem;
+  margin-top: -0.5rem;
 }
 
 @media (min-width: 1024px) {
@@ -145,6 +146,7 @@ button {
 .pageHeader {
   font-size: 2rem;
   font-weight: 800;
+  margin-bottom: 1.6rem;
 }
 
 .navbar {
@@ -327,7 +329,7 @@ button {
 }
 
 .exploreCategoryHeading {
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .swiper-container {
