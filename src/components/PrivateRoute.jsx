@@ -9,7 +9,7 @@ const PrivateRoute = () => {           //rafce
     if (checkingStatus) {
         return <Spinner />
     }
-
+    // navigate Profile or Sign-in
     return loggedIn ? <Outlet /> : <Navigate to='/sign-in' />
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'   // rafc
+import { useEffect, useState, useRef } from 'react'   // rafc
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export const useAuthStatus = () => {

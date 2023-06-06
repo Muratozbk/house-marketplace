@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase.config'
-import { addDoc, collection, serverTimestamp, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid'
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -47,20 +47,10 @@ function CreateListing() {
                 }
             })
         }
-        const unsubscribe = onSnapshot(collection(db, 'listings'), (snapshot) => {
-            const fetchedData = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            // Update your state or do something with the fetched data
-        });
 
         return () => {
             isMounted.current = false
-            unsubscribe()
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        // }, [isMounted])
     }, [auth, navigate, formData])
 
     ////----- On Submit ---------////
