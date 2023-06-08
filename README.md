@@ -43,4 +43,3 @@ The House Marketplace App is released under the [MIT License](https://opensource
 
 If you have any questions, suggestions, or issues related to the House Marketplace App, please contact the development team at `https://twitter.com/Murattozzk`. We appreciate your feedback and involvement in making the app better.
 
-Happy house hunting!
